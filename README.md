@@ -26,7 +26,7 @@ Repository for Recommender Systems UCU course project
       <p>Dmytro Ponomarov</p>
     </td>
     <td align="center">
-      <img src="https://cdn-icons-png.flaticon.com/512/147/147142.png" alt="Maksym Sarana" width="100" style="border-radius: 50%;">
+      <img src="https://media.licdn.com/dms/image/C5603AQGXQqM0arUrXA/profile-displayphoto-shrink_800_800/0/1516432360820?e=1695859200&v=beta&t=6RT0PJ3bm2rXkuwFA-26_Kgn6lv0ZELM1d5YELf_kWI" alt="Maksym Sarana" width="100" style="border-radius: 50%;">
       <p>Maksym Sarana</p>
     </td>
   </tr>
