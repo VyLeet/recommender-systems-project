@@ -65,7 +65,7 @@ def get_user_occupation():
                      index=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])
 
 
-def movies_encode_genres(movies_df):
+def encode_movie_genres(movies_df):
     """
     Genres encoding with 0 and 1
     :param movies_df: pandas dataframe
@@ -83,7 +83,7 @@ def movies_encode_genres(movies_df):
     return res
 
 
-def movies_extract_year(movies_df):
+def extract_movie_year(movies_df):
     """
     Extract a movie year from the title
     :param movies_df: pandas dataframe
