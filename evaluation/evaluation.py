@@ -34,7 +34,7 @@ class EvaluationFramework:
     def print_metrics(gt, predictions, model=None):
         print('---------------------------------------------')
         if model:
-            print(f'Testing model: {type(model)}')
+            print(f'Testing model: {type(model).__name__}')
         else:
             print('Testing model')
 

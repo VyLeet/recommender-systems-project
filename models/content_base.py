@@ -4,6 +4,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from abstract_model import AbstractModel
 
+
 class ContentBaseRecommender(AbstractModel, ABC):
     def __init__(self, df):
         self.indices = None
