@@ -14,6 +14,7 @@ class MatrixFactorizationRecommender(AbstractModel):
         self.sigma = None
 
     def fit(self, X, y):
+        X['Rating'] = y
         # Create a user-item matrix from the ratings data
         user_item_matrix = pd.pivot_table(
             X, values="Rating", index="UserID", columns="MovieID", fill_value=0
