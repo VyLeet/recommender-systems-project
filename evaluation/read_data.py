@@ -116,3 +116,20 @@ def get_rating_datetime(ratings_df, remove_timestamp_column=True):
         ratings_df.drop(columns=['Timestamp'], inplace=True)
 
     return ratings_df
+
+
+def add_movie_descriptions(movies_df, descriptions_fn):
+    """
+    Load the descriptions from the file and add them to the dataframe
+    :param movies_df: pandas dataframe
+    :param descriptions_fn: filename
+    :return: pandas dataframe
+    """
+    descriptions = pd.read_table(descriptions_fn, sep='::', engine='python', encoding='latin-1',
+                                 names=['MovieID', 'Description'])
+
+    movies_df = movies_df.join(descriptions, rsuffix="_other").drop(columns=['MovieID_other'])
+    movies_df.Description.fillna("", inplace=True)
+
+    return movies_df
+

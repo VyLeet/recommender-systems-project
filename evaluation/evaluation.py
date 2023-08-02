@@ -1,5 +1,5 @@
-
-from evaluation.read_data import read_ratings, read_users, read_movies
+from evaluation.read_data import read_ratings, read_users, read_movies, encode_movie_genres, extract_movie_year, \
+    add_movie_descriptions, get_user_age, get_user_occupation, get_rating_datetime
 from pathlib import Path
 from evaluation.metrics import mae, rmse
 
@@ -11,11 +11,19 @@ class EvaluationFramework:
     def __init__(self):
 
         ratings = read_ratings(DATA_DIR / 'ratings.dat')
+        ratings = get_rating_datetime(ratings, remove_timestamp_column=False)
         self.train_ratings = self.subset_ratings(DATA_DIR / 'train.ids', ratings)
         self.test_ratings = self.subset_ratings(DATA_DIR / 'test.ids', ratings)
 
-        self.users = read_users(DATA_DIR / 'users.dat')
-        self.movies = read_movies(DATA_DIR / 'movies.dat')
+        users = read_users(DATA_DIR / 'users.dat')
+        users = users.join(get_user_age(), on='Age')
+        users = users.join(get_user_occupation(), on='Occupation')
+        self.users = users
+
+        movies = read_movies(DATA_DIR / 'movies.dat')
+        movies = encode_movie_genres(movies, drop_genres_column=True)
+        movies = extract_movie_year(movies, remove_year_from_title=True)
+        self.movies = add_movie_descriptions(movies, DATA_DIR / 'movie_descriptions.dat')
 
     @staticmethod
     def subset_ratings(ids_file, ratings):
