@@ -12,6 +12,17 @@ class CollaborativeRecommender(AbstractModel):
         self.similarity_mtx = None
 
     def fit(self, X, y):
+
+        # create a matrix for user similarity calculation
+        # add user features (gender, age, occupation) for unseen users' similarity (since we have new users more
+        # often than the new movies)
+        users_features = pd.get_dummies(self.users.set_index('UserID')[['Occupation', 'Gender', 'Age']],
+                                        columns=['Occupation', 'Gender'], prefix=['occupation', 'gender'])
+        train_ratings = pd.pivot_table(X, index='MovieID', columns='UserID', values='Rating')
+
+
+
+
         X['Rating'] = y
         matrix = pd.pivot_table(X, index='MovieID', columns='UserID', values='Rating')
         matrix = matrix.fillna(0)
