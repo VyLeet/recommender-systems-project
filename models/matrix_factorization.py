@@ -2,9 +2,7 @@ import numpy as np
 import pandas as pd
 from scipy.sparse.linalg import svds
 from scipy.sparse import csc_matrix
-#from abc import ABCMeta, abstractmethod
 from models.abstract_model import AbstractModel
-#import evaluation
 
 
 class MatrixFactorizationRecommender(AbstractModel):
@@ -25,34 +23,37 @@ class MatrixFactorizationRecommender(AbstractModel):
         item_user_matrix = user_item_matrix.T
         item_user_matrix_sparse = csc_matrix(item_user_matrix).astype(float)
 
-        # Apply Singular Value Decomposition (SVD) to factorize the item-user matrix
+        # Apply Singular Value Decomposition to factorize the item-user matrix
         U, sigma, VT = svds(item_user_matrix_sparse, k=self.num_factors)
 
-        # Update the U and VT matrices in the class instance
+        # Update the U, VT, and sigma in the class instance
         self.U = U
         self.VT = VT
         self.sigma = sigma
 
     def predict(self, X):
-        # Get user and item indices from the input data
-        user_indices = X["UserID"] - 1  # Adjust to 0-based index
-        item_indices = X["MovieID"] - 1  # Adjust to 0-based index
+        # Get the user and movie IDs from the input data
+        user_ids = X["UserID"].values
+        movie_ids = X["MovieID"].values
 
-        # Filter out-of-bound indices
-        valid_user_indices = user_indices[user_indices < self.U.shape[0]]
-        valid_item_indices = item_indices[item_indices < self.VT.shape[1]]
-
-        # Estimate the missing ratings only for valid indices
+        # Initialize an empty array to store the predicted ratings
         predicted_ratings = np.zeros(len(X))
-        return predicted_ratings
-        predicted_ratings_mask = np.logical_and(
-            user_indices < self.U.shape[0], item_indices < self.VT.shape[1]
-        )
 
-        # Compute the predicted ratings for valid indices
-        predicted_ratings[predicted_ratings_mask] = np.dot(
-            self.U[valid_user_indices, :],
-            np.dot(np.diag(self.sigma), self.VT[:, valid_item_indices]),
-        )
+        # Loop through each user-item pair in the input data
+        for i in range(len(X)):
+            user_id = user_ids[i]
+            movie_id = movie_ids[i]
+
+            # If the user or movie ID is not present in the training data, set the predicted rating to a default value (e.g., mean rating)
+            if user_id not in self.users or movie_id not in self.movies:
+                predicted_ratings[i] = 3.0
+                continue
+
+            # Get the index of the user and movie in the matrix factorization matrices
+            user_idx = self.users.index(user_id)
+            movie_idx = self.movies.index(movie_id)
+
+            # Compute the predicted rating using the dot product of the corresponding rows in U and VT
+            predicted_ratings[i] = np.dot(self.U[user_idx, :], self.VT[:, movie_idx])
 
         return predicted_ratings
