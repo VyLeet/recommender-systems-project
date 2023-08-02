@@ -1,7 +1,8 @@
 from evaluation.read_data import read_ratings, read_users, read_movies, encode_movie_genres, extract_movie_year, \
     add_movie_descriptions, get_user_age, get_user_occupation, get_rating_datetime
 from pathlib import Path
-from evaluation.metrics import mae, rmse
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+
 
 DATA_DIR = Path(__file__).parent.parent / 'data'
 
@@ -46,8 +47,8 @@ class EvaluationFramework:
         else:
             print('Testing model')
 
-        print(f"MAE:  {mae(gt, predictions):.3f}")
-        print(f"RMSE: {rmse(gt, predictions):.3f}")
+        print(f"MAE:  {mean_absolute_error(gt, predictions):.3f}")
+        print(f"RMSE: {mean_squared_error(gt, predictions, squared=False):.3f}")
         print('---------------------------------------------')
 
     def evaluate(self, model_cls, model_params=None):
