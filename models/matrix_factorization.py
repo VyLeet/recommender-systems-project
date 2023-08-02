@@ -2,9 +2,7 @@ import numpy as np
 import pandas as pd
 from scipy.sparse.linalg import svds
 from scipy.sparse import csc_matrix
-#from abc import ABCMeta, abstractmethod
 from models.abstract_model import AbstractModel
-#import evaluation
 
 
 class MatrixFactorizationRecommender(AbstractModel):
@@ -25,10 +23,10 @@ class MatrixFactorizationRecommender(AbstractModel):
         item_user_matrix = user_item_matrix.T
         item_user_matrix_sparse = csc_matrix(item_user_matrix).astype(float)
 
-        # Apply Singular Value Decomposition (SVD) to factorize the item-user matrix
+        # Apply Singular Value Decomposition to factorize the item-user matrix
         U, sigma, VT = svds(item_user_matrix_sparse, k=self.num_factors)
 
-        # Update the U and VT matrices in the class instance
+        # Update the U, VT, and sigma in the class instance
         self.U = U
         self.VT = VT
         self.sigma = sigma
@@ -48,7 +46,7 @@ class MatrixFactorizationRecommender(AbstractModel):
 
             # If the user or movie ID is not present in the training data, set the predicted rating to a default value (e.g., mean rating)
             if user_id not in self.users or movie_id not in self.movies:
-                predicted_ratings[i] = 3.0  # You can choose any default value here
+                predicted_ratings[i] = 3.0
                 continue
 
             # Get the index of the user and movie in the matrix factorization matrices
