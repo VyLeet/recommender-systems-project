@@ -1,4 +1,4 @@
-from abstract_model import AbstractModel
+from models.abstract_model import AbstractModel
 import numpy as np
 
 
