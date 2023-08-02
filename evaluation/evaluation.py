@@ -38,10 +38,10 @@ class EvaluationFramework:
         model = model_cls(users=self.users, movies=self.movies, **model_params)
 
         model.fit(
-            self.train_ratings.drop(columns='Rating'),
+            self.train_ratings,  #.drop(columns='Rating'),
             self.train_ratings.Rating
         )
-        predictions = model.predict(self.test_ratings.drop(columns='Rating'))
+        predictions = model.predict(self.test_ratings) #.drop(columns='Rating'))
         self.print_metrics(gt=self.test_ratings.Ratings, predictions=predictions, model=model)
 
 
