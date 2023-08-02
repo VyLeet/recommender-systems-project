@@ -1,4 +1,3 @@
-from abc import ABC
 import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
@@ -11,7 +10,10 @@ class ContentBaseRecommender(AbstractModel, ABC):
         self.matrix = None
 
 
+class ContentBaseRecommender(AbstractModel):
+
     def fit(self, X, y):
+
         # Compute similarity matrix and cosine similarity
         # Use TF/IDF model for content base recommendations
         tfidf = TfidfVectorizer(stop_words='english')

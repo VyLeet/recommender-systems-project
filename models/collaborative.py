@@ -1,17 +1,18 @@
 import pandas as pd
 import numpy as np
 from scipy.spatial.distance import pdist, squareform
-from abstract_model import AbstractModel
+from models.abstract_model import AbstractModel
 
 
 class CollaborativeRecommender(AbstractModel):
 
-    def __init__(self, df):
+    def __init__(self, users, movies):
+        super().__init__(users, movies)
         self.matrix = None
         self.similarity_mtx = None
-        self.df = df
 
     def fit(self, X, y):
+        X['Rating'] = y
         matrix = pd.pivot_table(X, index='MovieID', columns='UserID', values='Rating')
         matrix = matrix.fillna(0)
 

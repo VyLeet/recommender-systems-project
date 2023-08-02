@@ -4,14 +4,10 @@ import numpy as np
 """
 """
 
+def precision_at_k(gt, predictions, k=1):
+    pass
 
-def mae(a, b):
-    a, b = np.array(a), np.array(b)
-    return np.abs(a - b).sum() / len(a)
 
-def rmse(a, b):
-    a, b = np.array(a), np.array(b)
-    return np.sqrt(np.sum((a - b)**2) / len(a))
 
-def mapk(a, b, k):
+def mean_average_precision_at_k(gt, predictions, k=1):
     pass
