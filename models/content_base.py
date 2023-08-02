@@ -1,4 +1,3 @@
-from abc import ABC
 import pandas as pd
 from models.abstract_model import AbstractModel
 
@@ -6,17 +5,16 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
 
 
-class ContentBaseRecommender(AbstractModel, ABC):
-    def __init__(self, df):
-        self.indices = None
-        self.df = df
-
+class ContentBaseRecommender(AbstractModel):
     "" \
     " Fit method" \
     " X: none" \
     " y: column name" \
     ""
     def fit(self, X, y):
+        #
+        movies_text_data = None
+
         # Compute similarity matrix and cosine similarity
         # Use TF/IDF model for content base recommendations
         tfidf = TfidfVectorizer(stop_words='english')
