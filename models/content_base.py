@@ -4,6 +4,9 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from abstract_model import AbstractModel
 
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import linear_kernel
+
 
 class ContentBaseRecommender(AbstractModel, ABC):
     def __init__(self, df):
@@ -17,9 +20,12 @@ class ContentBaseRecommender(AbstractModel, ABC):
     ""
     def fit(self, X, y):
         # Compute similarity matrix and cosine similarity
-        CV = CountVectorizer()
-        similarity_matrix = CV.fit_transform(self.df[y])
-        cosine_similarity = cosine_similarity(similarity_matrix)
+        # Use TF/IDF model for content base recommendations
+        tfidf = TfidfVectorizer(stop_words='english')
+        tfidf_matrix = tfidf.fit_transform(self.df[y].fillna(''))
+
+        # Compute similarity matrix
+        similarity_matrix = linear_kernel(tfidf_matrix, tfidf_matrix)
 
         # Movies index mapping
         indices = pd.Series(self.df.index, index=self.df[y])
@@ -27,7 +33,7 @@ class ContentBaseRecommender(AbstractModel, ABC):
         # Get the index of the movie that matches the title
         movie_idx = indices[X]
 
-        movie_scores = list(enumerate(cosine_similarity[movie_idx]))
+        movie_scores = list(enumerate(similarity_matrix[movie_idx]))
         movie_scores = sorted(movie_scores, key=lambda x: x[1], reverse=True)
         # start from 1, where 0 element is itself.
         # Top 5.

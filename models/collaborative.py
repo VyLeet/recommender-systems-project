@@ -26,7 +26,7 @@ class CollaborativeRecommender(AbstractModel):
         user_ids = X['UserID'].values
         movie_ids = X['MovieID'].values
 
-        predicted_ratings = []
+        predicted_ratings = np.zeros(len(X))
 
         for i in range(len(X)):
             user_rating = self.matrix.iloc[:, user_ids[i] - 1]
