@@ -1,5 +1,5 @@
 
-from evaluation.read_data import read_ratings
+from evaluation.read_data import read_ratings, read_users, read_movies
 from pathlib import Path
 
 DATA_DIR = Path(__file__).parent.parent / 'data'
@@ -12,6 +12,9 @@ class EvaluationFramework:
         ratings = read_ratings(DATA_DIR / 'ratings.dat')
         self.train_ratings = self.subset_ratings(DATA_DIR / 'train.ids', ratings)
         self.test_ratings = self.subset_ratings(DATA_DIR / 'test.ids', ratings)
+
+        self.users = read_users(DATA_DIR / 'users.dat')
+        self.movies = read_movies(DATA_DIR / 'movies.dat')
 
     @staticmethod
     def subset_ratings(ids_file, ratings):
@@ -26,18 +29,20 @@ class EvaluationFramework:
 
         return ratings.loc[ratings.apply(lambda r: (r.UserID, r.MovieID) in ids, axis=1)]
 
-    def print_metrics(self, gt, predictions):
+    @staticmethod
+    def print_metrics(self, gt, predictions, model=None):
         pass
+
     def evaluate(self, model_cls, model_params=None):
         model_params = model_params or {}
-        model = model_cls(**model_params)
+        model = model_cls(users=self.users, movies=self.movies, **model_params)
 
         model.fit(
             self.train_ratings.drop(columns='Rating'),
             self.train_ratings.Rating
         )
         predictions = model.predict(self.test_ratings.drop(columns='Rating'))
-        self.print_metrics(gt=self.test_ratings.Ratings, predictions=predictions)
+        self.print_metrics(gt=self.test_ratings.Ratings, predictions=predictions, model=model)
 
 
 
