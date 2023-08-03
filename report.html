@@ -14729,6 +14729,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The Online Methodology is described in the <a href="#appendix_C_online_evaluation_methodology">Appendix C</a>.</p>
 
 </div>
 </div>
@@ -16590,8 +16591,43 @@ Test set has 1.62% of new movies (55)
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><a id='appendix_C_scrap_movie_descriptions'></a></p>
-<h1 id="Appendix-C.-Movie-descriptions-WEB-scraping">Appendix C. Movie descriptions WEB-scraping<a class="anchor-link" href="#Appendix-C.-Movie-descriptions-WEB-scraping">&#182;</a></h1>
+<p><a id='appendix_C_online_evaluation_methodology'></a></p>
+<h1 id="Appendix-C.-Online-evaluation-methodology">Appendix C. Online evaluation methodology<a class="anchor-link" href="#Appendix-C.-Online-evaluation-methodology">&#182;</a></h1>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Evaluation-techniques:">Evaluation techniques:<a class="anchor-link" href="#Evaluation-techniques:">&#182;</a></h2><h4 id="A/B-Testing:">A/B Testing:<a class="anchor-link" href="#A/B-Testing:">&#182;</a></h4><p>In A/B testing users would be divided into two groups: a control group and an experimental group. The control group receives movie recommendations from the current system (baseline), while the experimental group is exposed to recommendations from the new system being evaluated. By comparing the performance metrics (e.g., click-through rates) between the two groups, we can determine the effectiveness of the new recommender system.</p>
+<h4 id="Online-Learning:">Online Learning:<a class="anchor-link" href="#Online-Learning:">&#182;</a></h4><p>The movie recommender system continuously updates its recommendations based on user interactions and feedback. As users provide ratings or engage with movie recommendations, the system updates its model in real-time. This allows the system to adapt and improve its suggestions based on the most recent user behavior.</p>
+<h4 id="Multi-Armed-Bandit:">Multi-Armed Bandit:<a class="anchor-link" href="#Multi-Armed-Bandit:">&#182;</a></h4><p>The users receive different recommendation options (arms) and we observe their interactions. Initially, the system may explore different movie suggestions to gather data on user preferences, and over time, it shifts to exploiting the most promising recommendations based on the observed feedback.</p>
+<h2 id="Methodology:">Methodology:<a class="anchor-link" href="#Methodology:">&#182;</a></h2><h4 id="Data-Preparation:">Data Preparation:<a class="anchor-link" href="#Data-Preparation:">&#182;</a></h4><p>Prepare the datasets. Ensure that the data is clean and relevant.</p>
+<h4 id="Online-Environment-Setup:">Online Environment Setup:<a class="anchor-link" href="#Online-Environment-Setup:">&#182;</a></h4><p>Set up the online environment where the recommender system will be deployed and tested (e.g. live website).</p>
+<h4 id="Randomized-Control:">Randomized Control:<a class="anchor-link" href="#Randomized-Control:">&#182;</a></h4><p>Randomly divide users into two groups: control and experimental. Ensure that the groups are large enough to yield statistically significant results.</p>
+<h4 id="Metrics-Selection:">Metrics Selection:<a class="anchor-link" href="#Metrics-Selection:">&#182;</a></h4><p>Choose appropriate evaluation metrics, such as click-through rates, user engagement, or movie ratings. These metrics should align with the specific objectives of our recommender system.</p>
+<h4 id="Data-Collection:">Data Collection:<a class="anchor-link" href="#Data-Collection:">&#182;</a></h4><p>Collect relevant data on user interactions, ratings, and any other relevant metrics.</p>
+<h4 id="Statistical-Analysis:">Statistical Analysis:<a class="anchor-link" href="#Statistical-Analysis:">&#182;</a></h4><p>After the testing period, perform statistical analysis to compare the performance metrics between the control and experimental groups. Use appropriate statistical tests (e.g., t-test, chi-square test) to determine if there are significant differences in the performance of the two systems.</p>
+<h4 id="Iterative-Improvement:">Iterative Improvement:<a class="anchor-link" href="#Iterative-Improvement:">&#182;</a></h4><p>Based on the results of the online evaluation, make necessary adjustments to the new recommender system and repeat the testing process if required. Iteratively refine the system until satisfactory performance is achieved.</p>
+<h4 id="User-Feedback:">User Feedback:<a class="anchor-link" href="#User-Feedback:">&#182;</a></h4><p>Gather qualitative feedback from users regarding their experience with the recommender system. "Did recommendations become better?", "Are your recommendations relevant?"</p>
+<h4 id="Deployment:">Deployment:<a class="anchor-link" href="#Deployment:">&#182;</a></h4><p>Document the performance improvements achieved. If the new system performs better than the baseline, deploy it in the production environment.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><a id='appendix_D_scrap_movie_descriptions'></a></p>
+<h1 id="Appendix-D.-Movie-descriptions-WEB-scraping">Appendix D. Movie descriptions WEB-scraping<a class="anchor-link" href="#Appendix-D.-Movie-descriptions-WEB-scraping">&#182;</a></h1>
 </div>
 </div>
 </div>
