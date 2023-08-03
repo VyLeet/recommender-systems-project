@@ -1,20 +1,24 @@
-# recommender-systems-project
+# Recommender systems project
 Repository for Recommender Systems UCU course project
 
-# Quick Start
+## Report
+The final report and additions are in the file [report.html](report.html).
+
+The [report.ipynb](report.ipynb) is the same file in the jupyter notebook format. 
+
+## Quick Start
+
+### Clone the repository and set up the environment 
 1. Clone the repository with `git clone`
 2. Create a virtual environment with `virtualenv venv`
 3. Activate the virtual environment with `source venv/bin/activate`
 4. Install the dependencies with `pip install -r requirements.txt`
 
-# Work Guide
-1. Pull the latest `main` changes with `git pull`
-2. Create your own development branch with `git checkout -b YOUR_BRANCH_NAME`
-3. Commit your changes with `git commit -m"YOUR MESSAGE"
-4. Update the dependencies with `pip freeze > requirements.txt`
-5. Checkout the main branch, pull, and merge your working code with `git merge YOUR_BRANCH_NAME`
+### Run the Evaluation Framework CLI:
+1. Run `python run.py -m random collaborative matrix_factorization`
 
-# Collaborators
+
+## Collaborators
 <table>
   <tr>
     <td align="center">
