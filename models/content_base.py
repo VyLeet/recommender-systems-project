@@ -2,12 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
-from abstract_model import AbstractModel
-
-
-class ContentBaseRecommender(AbstractModel, ABC):
-    def __init__(self, df):
-        self.matrix = None
+from models.abstract_model import AbstractModel
 
 
 class ContentBaseRecommender(AbstractModel):
