@@ -14704,9 +14704,19 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li><em>Train-test split strategy</em> is described and realized in the <a href="#appendix_B_train_test_split">Appendix B</a>. We splitted the data onto train and test sets in this notebook since it is relatively "research" task, save the ids to the files <code>data/train.ids</code> and <code>data/test.ids</code> (tab-separated files with pairs <code>&lt;UserID&gt;\t&lt;MovieID&gt;</code>). The Evaluation Framework reads these files and splits the data during the initialization.</li>
-</ul>
+<p>We are going to predict the same rating (from 1 to 5) as we have in the dataset, i.e. solve a regression task. The natural metrics for continuous or ordinal predictions are MAE, MSE and RMSE. We have chosen MAE and RMSE to have the same scale as ratings.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><em>Train-test split strategy</em> is realized and described in detail in the <a href="#appendix_B_train_test_split">Appendix B</a>. We splitted the data onto train and test sets in this notebook since it is relatively "research" task, save the ids to the files <code>data/train.ids</code> and <code>data/test.ids</code> (tab-separated files with pairs <code>&lt;UserID&gt;\t&lt;MovieID&gt;</code>). The Evaluation Framework reads these files and splits the data during the initialization.</p>
 
 </div>
 </div>
@@ -14802,17 +14812,6 @@ RMSE: 1.261
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="Summary-&amp;-Conclusions">Summary &amp; Conclusions<a class="anchor-link" href="#Summary-&amp;-Conclusions">&#182;</a></h3>
 </div>
 </div>
@@ -14824,6 +14823,7 @@ RMSE: 1.261
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>In this project we implemented several recommender algorithms and found, that the best performance (lower MAE and RMSE) has the collaborative filtering. The error metrics (MAE, RMSE) for the collaborative filtering are 1.5 times better (lower) than the random rank model (baseline).</p>
 
 </div>
 </div>
