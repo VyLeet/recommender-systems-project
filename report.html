@@ -14788,21 +14788,33 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 <pre><code>---------------------------------------------
 Testing model: RandomRecommender
+
+Metrics:
 MAE:  1.541
 RMSE: 1.915
 ---------------------------------------------
 ---------------------------------------------
 Testing model: ContentBaseRecommender
-MAE:  1.407
-RMSE: 1.789
+Use TF-IDF features: True
+TF-IDF max features: 50
+
+Metrics:
+MAE:  1.424
+RMSE: 1.659
 ---------------------------------------------
 ---------------------------------------------
 Testing model: CollaborativeRecommender
+Top K: 30
+
+Metrics:
 MAE:  1.019
 RMSE: 1.257
 ---------------------------------------------
 ---------------------------------------------
 Testing model: MatrixFactorizationRecommender
+Num factors: 50
+
+Metrics:
 MAE:  1.022
 RMSE: 1.261
 ---------------------------------------------</code></pre>

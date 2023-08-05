@@ -54,6 +54,12 @@ class CollaborativeRecommender(AbstractModel):
                 if neighborhood_all_ratings.sum() > 0:
                     predicted_ratings[i] = neighborhood_all_ratings.sum() / (neighborhood_all_ratings > 0).sum()
                 else:
-                    predicted_ratings[i] = 3
+                    predicted_ratings[i] = 3  # if there is no information, just average rating
 
         return predicted_ratings
+
+    def __repr__(self):
+        repr_str = super().__repr__()
+        repr_str += f"\nTop K: {self.top_k}"
+
+        return repr_str

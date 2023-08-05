@@ -15,3 +15,6 @@ class AbstractModel(object):
     @abstractmethod
     def predict(self, X):
         raise NotImplementedError()
+
+    def __repr__(self):
+        return type(self).__name__
