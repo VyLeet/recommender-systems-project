@@ -43,10 +43,11 @@ class EvaluationFramework:
     def print_metrics(gt, predictions, model=None):
         print('---------------------------------------------')
         if model:
-            print(f'Testing model: {type(model).__name__}')
+            print(f'Testing model: {repr(model)}')
         else:
             print('Testing model')
 
+        print("\nMetrics:")
         print(f"MAE:  {mean_absolute_error(gt, predictions):.3f}")
         print(f"RMSE: {mean_squared_error(gt, predictions, squared=False):.3f}")
         print('---------------------------------------------')

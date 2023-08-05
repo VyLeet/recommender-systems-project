@@ -58,3 +58,9 @@ class MatrixFactorizationRecommender(AbstractModel):
             predicted_ratings[i] = np.dot(self.U[user_idx, :], self.VT[:, movie_idx])
 
         return predicted_ratings
+
+    def __repr__(self):
+        repr_str = super().__repr__()
+        repr_str += f"\nNum factors: {self.num_factors}"
+
+        return repr_str
