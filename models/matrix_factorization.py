@@ -64,3 +64,9 @@ class MatrixFactorizationRecommender(AbstractModel):
         repr_str += f"\nNum factors: {self.num_factors}"
 
         return repr_str
+
+    def save(self, filename):
+        raise NotImplementedError()
+
+    def load(self, filename):
+        raise NotImplementedError()

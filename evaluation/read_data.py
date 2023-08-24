@@ -133,3 +133,16 @@ def add_movie_descriptions(movies_df, descriptions_fn):
 
     return movies_df
 
+
+def subset_ratings(ids_file, ratings):
+    """
+    The method reads a file with user and movie ids and filters the rating dataset
+    :param ids_file: filename
+    :param ratings: pandas dataframe with ratings
+    :return: filtered pandas dataframe
+    """
+    with open(ids_file, 'r') as f:
+        ids = {tuple(map(int, l.strip().split('\t'))) for l in f}
+
+    return ratings.loc[ratings.apply(lambda r: (r.UserID, r.MovieID) in ids, axis=1)]
+

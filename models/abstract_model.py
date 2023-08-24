@@ -18,3 +18,9 @@ class AbstractModel(object):
 
     def __repr__(self):
         return type(self).__name__
+
+    def save(self, filename):
+        raise NotImplementedError()
+
+    def load(self, filename):
+        raise NotImplementedError()
