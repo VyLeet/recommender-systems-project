@@ -24,6 +24,10 @@ class ModelSelector:
     def get_keys_list(self):
         return list(self.models.keys())
 
+    def get_arg_parsers(self):
+        parsers = [m.get_argument_parser() for m in self.models.values()]
+        return list(filter(None, parsers))
+
     def __getitem__(self, key):
         if key not in self.models:
             raise NotImplementedError(f"Model for the `{key}` key is not implemented")

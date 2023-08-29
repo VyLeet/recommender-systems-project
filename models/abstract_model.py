@@ -35,3 +35,7 @@ class AbstractModel(object):
     @classmethod
     def get_cli_key(cls):
         return camel_to_snake(cls.__name__.removesuffix("Recommender"))
+
+    @classmethod
+    def get_argument_parser(cls):
+        return None
