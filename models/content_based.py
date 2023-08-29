@@ -3,9 +3,10 @@ import numpy as np
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from models.abstract_model import AbstractModel
+import argparse
 
 
-class ContentBaseRecommender(AbstractModel):
+class ContentBasedRecommender(AbstractModel):
 
     def __init__(self, users, movies, use_tfidf=True, tfidf_max_features=50):
         super().__init__(users, movies)
@@ -103,3 +104,11 @@ class ContentBaseRecommender(AbstractModel):
             repr_str += f"\nTF-IDF max features: {self.tfidf_max_features}"
 
         return repr_str
+
+    @classmethod
+    def get_argument_parser(cls):
+        parser = argparse.ArgumentParser(add_help=False)
+        parser.add_argument(f'--{cls.get_cli_key()}.tfidf_max_features', type=int, default=50)
+
+        return parser
+

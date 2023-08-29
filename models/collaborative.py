@@ -63,3 +63,6 @@ class CollaborativeRecommender(AbstractModel):
         repr_str += f"\nTop K: {self.top_k}"
 
         return repr_str
+
+    def __getstate__(self):
+        return self.__dict__
