@@ -1,19 +1,34 @@
 import argparse
-from pathlib import Path
 
-from tasks.read_data import subset_ratings, read_ratings, get_rating_datetime
+from tasks.abstract_task import AbstractTask, DATA_DIR
 
-DATA_DIR = Path(__file__).parent / 'data'
+
+class Inference(AbstractTask):
+    def __init__(self, output_file, model=None):
+        super().__init__(ids_file=DATA_DIR / 'inference.ids')
+        self.output_file = output_file
+        if model is not None:
+            self.model = model
+
+    def run(self):
+        predictions = self.model.predict(self.ratings.drop(columns='Rating'))
+
+
+
 
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-mf', '--model_file', required=True, help='Model type', type=str)
+    parser.add_argument('-m', '--model_file', required=True, type=str,
+                        help='Serialized model')
+    parser.add_argument('-o', '--output_file', required=True, type=str,
+                        help='Output CSV file')
+
     script_args = parser.parse_args()
 
-    ratings = read_ratings(DATA_DIR / 'ratings.dat')
-    ratings = get_rating_datetime(ratings, remove_timestamp_column=False)
-    inference_ratings = subset_ratings(DATA_DIR / 'inference.ids', ratings)
+    inference_task = Inference(script_args.output_file)
+    inference_task.load_model(script_args.model_file)
+    inference_task.run()
 
 
 
