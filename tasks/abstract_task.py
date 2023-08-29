@@ -39,9 +39,10 @@ class AbstractTask(object):
         users = users.join(get_user_occupation(), on='Occupation')
         return users
 
-    def load_ratings(self, ids_file):
+    def load_ratings(self, ids_file, convert_datetime=False):
         ratings = read_ratings(self.data_dir / 'ratings.dat')
-        ratings = get_rating_datetime(ratings, remove_timestamp_column=False)
+        if convert_datetime:
+            ratings = get_rating_datetime(ratings, remove_timestamp_column=False)
         ratings = subset_ratings(self.data_dir / ids_file, ratings)
         return ratings
 

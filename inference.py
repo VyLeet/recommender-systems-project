@@ -11,9 +11,12 @@ class Inference(AbstractTask):
             self.model = model
 
     def run(self):
-        predictions = self.model.predict(self.ratings.drop(columns='Rating'))
+        data = self.ratings.drop(columns='Rating')
+        predictions = self.model.predict(data)
 
-
+        output = data.copy()
+        output['Rating'] = predictions
+        output.to_csv(self.output_file)
 
 
 if __name__ == '__main__':
