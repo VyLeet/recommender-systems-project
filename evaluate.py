@@ -1,4 +1,6 @@
 
+import argparse
+
 from tasks.abstract_task import AbstractTask, DATA_DIR
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
@@ -28,4 +30,13 @@ class Evaluate(AbstractTask):
 
 
 if __name__ == '__main__':
-    pass
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-m', '--model_file', required=True, type=str,
+                        help='Serialized model')
+
+    script_args = parser.parse_args()
+
+    evaluate_task = Evaluate()
+    evaluate_task.load_model(script_args.model_file)
+    evaluate_task.run()
