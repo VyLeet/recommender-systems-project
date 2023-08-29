@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from models.abstract_model import AbstractModel
 
 
-class ContentBaseRecommender(AbstractModel):
+class ContentBasedRecommender(AbstractModel):
 
     def __init__(self, users, movies, use_tfidf=True, tfidf_max_features=50):
         super().__init__(users, movies)
