@@ -1,6 +1,9 @@
-import pandas as pd
+import argparse
+
 import numpy as np
+import pandas as pd
 from scipy.spatial.distance import pdist, squareform
+
 from models.abstract_model import AbstractModel
 
 
@@ -66,3 +69,9 @@ class CollaborativeRecommender(AbstractModel):
 
     def __getstate__(self):
         return self.__dict__
+
+    @classmethod
+    def get_argument_parser(cls):
+        parser = argparse.ArgumentParser(add_help=False)
+        parser.add_argument(f'--{cls.get_cli_key()}.top_k', type=int, default=30)
+        return parser

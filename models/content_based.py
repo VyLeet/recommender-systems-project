@@ -1,9 +1,10 @@
-import pandas as pd
-import numpy as np
-
-from sklearn.feature_extraction.text import TfidfVectorizer
-from models.abstract_model import AbstractModel
 import argparse
+
+import numpy as np
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+from models.abstract_model import AbstractModel
 
 
 class ContentBasedRecommender(AbstractModel):
@@ -109,6 +110,6 @@ class ContentBasedRecommender(AbstractModel):
     def get_argument_parser(cls):
         parser = argparse.ArgumentParser(add_help=False)
         parser.add_argument(f'--{cls.get_cli_key()}.tfidf_max_features', type=int, default=50)
-
+        parser.add_argument(f'--{cls.get_cli_key()}.use_tfidf', type=bool, default=True)
         return parser
 

@@ -1,7 +1,10 @@
+import argparse
+
 import numpy as np
 import pandas as pd
-from scipy.sparse.linalg import svds
 from scipy.sparse import csc_matrix
+from scipy.sparse.linalg import svds
+
 from models.abstract_model import AbstractModel
 
 
@@ -65,8 +68,8 @@ class MatrixFactorizationRecommender(AbstractModel):
 
         return repr_str
 
-    def save(self, filename):
-        raise NotImplementedError()
-
-    def load(self, filename):
-        raise NotImplementedError()
+    @classmethod
+    def get_argument_parser(cls):
+        parser = argparse.ArgumentParser(add_help=False)
+        parser.add_argument(f'--{cls.get_cli_key()}.num_factors', type=int, default=50)
+        return parser
