@@ -12,14 +12,16 @@ from models.matrix_factorization import MatrixFactorizationRecommender
 
 # Hybrid weighted ensemble recommender system
 class HybridRecommender(AbstractModel):
-    def __init__(self, users, movies, learn_weights=False):
+    def __init__(self, users, movies, learn_weights=False, collaborative_top_k=30, content_use_tfidf=True,
+                 content_tfidf_max_features=50, matrix_factorization_num_factors=50):
         super().__init__(users, movies)
 
         # List the models taking part in ensemble
         self.models: list = [
-            CollaborativeRecommender(users, movies),
-            ContentBasedRecommender(users, movies),
-            MatrixFactorizationRecommender(users, movies),
+            CollaborativeRecommender(users, movies, top_k=collaborative_top_k),
+            ContentBasedRecommender(users, movies, use_tfidf=content_use_tfidf,
+                                    tfidf_max_features=content_tfidf_max_features),
+            MatrixFactorizationRecommender(users, movies, num_factors=matrix_factorization_num_factors),
         ]
 
         self.learn_weights = learn_weights
@@ -49,6 +51,11 @@ class HybridRecommender(AbstractModel):
     @classmethod
     def get_argument_parser(cls):
         parser = argparse.ArgumentParser(add_help=False)
-        parser.add_argument(f'--{cls.get_cli_key()}.learn_weights', type=bool, default=True)
+        parser.add_argument(f'--{cls.get_cli_key()}.learn_weights', type=bool, default=False)
+        parser.add_argument(f'--{cls.get_cli_key()}.collaborative_top_k', type=int, default=30)
+        parser.add_argument(f'--{cls.get_cli_key()}.content_tfidf_max_features', type=int, default=50)
+        parser.add_argument(f'--{cls.get_cli_key()}.content_use_tfidf', type=bool, default=True)
+        parser.add_argument(f'--{cls.get_cli_key()}.matrix_factorization_num_factors', type=int, default=50)
+
         return parser
 
