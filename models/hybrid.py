@@ -4,7 +4,7 @@ from sklearn.metrics import mean_squared_error
 from scipy.optimize import minimize
 from models.abstract_model import AbstractModel
 from models.collaborative import CollaborativeRecommender
-from models.content_base import ContentBaseRecommender
+from models.content_based import ContentBasedRecommender
 from models.matrix_factorization import MatrixFactorizationRecommender
 
 
@@ -16,7 +16,7 @@ class HybridRecommender(AbstractModel):
         # List the models taking part in ensemble
         self.models: list = [
             CollaborativeRecommender(users, movies),
-            ContentBaseRecommender(users, movies),
+            ContentBasedRecommender(users, movies),
             MatrixFactorizationRecommender(users, movies),
         ]
 
@@ -31,7 +31,7 @@ class HybridRecommender(AbstractModel):
 
             def loss(weights):
                 predictions = self.predict(X, weights)
-                return mean_squared_error(y_val, predictions)
+                return mean_squared_error(y, predictions)
 
             result = minimize(loss, self.weights, method="BFGS")
 
