@@ -1,17 +1,16 @@
 from abc import ABCMeta, abstractmethod
-from pathlib import Path
 from evaluation.read_data import read_ratings, read_users, read_movies, encode_movie_genres, extract_movie_year, \
     add_movie_descriptions, get_user_age, get_user_occupation, get_rating_datetime, subset_ratings
 from pathlib import Path
-from sklearn.metrics import mean_absolute_error, mean_squared_error
+import pickle
 
 
 DATA_DIR = Path(__file__).parent.parent / 'data'
 
 
-class AbstractPipeline(object):
+class AbstractTask(object):
     """
-    The AbstractPipeline class loads data and creates interfaces for loading/saving a model. It is parent class for
+    The AbstractTask class loads data and creates interfaces for loading/saving a model. It is parent class for
     the Train, Evaluation and Inference pipelines
     """
 
@@ -19,6 +18,8 @@ class AbstractPipeline(object):
 
     def __init__(self, ids_file):
         self.data_dir = DATA_DIR
+
+        self.model = None
 
         self.users = self.load_users()
         self.movies = self.load_movies()
@@ -43,3 +44,18 @@ class AbstractPipeline(object):
         ratings = get_rating_datetime(ratings, remove_timestamp_column=False)
         ratings = subset_ratings(self.data_dir / ids_file, ratings)
         return ratings
+
+    def dump_model(self, fn):
+        assert self.model is not None
+
+        with open(fn, 'wb') as f:
+            pickle.dump(self.model, f)
+
+    def load_model(self, fn):
+        with open(fn, 'rb') as f:
+            self.model = pickle.load(f)
+
+    @abstractmethod
+    def run(self):
+        raise NotImplementedError('The `run` method is not implemented')
+
