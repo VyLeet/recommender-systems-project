@@ -15,8 +15,9 @@ The [report.ipynb](report.ipynb) is the same file in the jupyter notebook format
 4. Install the dependencies with `pip install -r requirements.txt`
 
 ### Run the Evaluation Framework CLI:
-1. Run `python run.py -m random collaborative matrix_factorization`
-
+1. Train, evaluate and save a model to a file: `python train.py -m content_based --content_based.tfidf_max_features 40 --evaluate --save /tmp/model.pkl` 
+2. Evaluate a previously saved model: `python evaluate.py -m /tmp/model.pkl` 
+3. Run inference and save results to a CSV file: `python inference.py -m /tmp/model.pkl -o /tmp/results.csv` 
 
 ## Collaborators
 <table>
