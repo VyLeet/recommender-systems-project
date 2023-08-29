@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
 
-from evaluation.read_data import subset_ratings, read_ratings, get_rating_datetime
+from tasks.read_data import subset_ratings, read_ratings, get_rating_datetime
 
 DATA_DIR = Path(__file__).parent / 'data'
 

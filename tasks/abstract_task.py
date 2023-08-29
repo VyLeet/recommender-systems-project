@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from evaluation.read_data import read_ratings, read_users, read_movies, encode_movie_genres, extract_movie_year, \
+from tasks.read_data import read_ratings, read_users, read_movies, encode_movie_genres, extract_movie_year, \
     add_movie_descriptions, get_user_age, get_user_occupation, get_rating_datetime, subset_ratings
 from pathlib import Path
 import pickle
