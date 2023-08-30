@@ -14632,7 +14632,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <li>The <code>AbstractTask</code> class that combines a mode and data, and it is the parent class of the <code>Train</code>, <code>Evaluate</code> and <code>Inference</code> classes. </li>
 <li>The <code>run.py</code> script was removed.</li>
 <li>Model serialization</li>
-<li>List of models is collected dynamically (look at <a href="tasks/model_selector.py"><code>tasks/model_selector.py</code></a>), there is no need to update CLI scripts to add a new model. </li>
+<li>List of models is collected dynamically (look at <a href="workflow/model_selector.py"><code>workflow/model_selector.py</code></a>), there is no need to update CLI scripts to add a new model. </li>
 </ul>
 
 </div>
@@ -14694,7 +14694,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <li><a href="data"><code>data/</code></a> - directory with original data, files with train, test and inference ids, external data</li>
 <li><a href="models"><code>models/</code></a> - directory includes an abstract model class and implementation of the models</li>
 <li><a href="task"><code>task/</code></a> - directory with the original task description</li>
-<li><a href="tasks"><code>tasks/</code></a> - directory includes the <code>AbstractTask</code> class, <code>model_selector</code> and auxiliary functions</li>
+<li><a href="workflow"><code>workflow/</code></a> - directory includes the <code>AbstractTask</code> class, <code>model_selector</code> and auxiliary functions</li>
 <li><a href="train.py"><code>train.py</code></a> - Train CLI</li>
 <li><a href="evaluate.py"><code>evaluate.py</code></a> - Evaluate CLI</li>
 <li><a href="inference.py"><code>inference.py</code></a> - Inference CLI</li>
@@ -14894,7 +14894,7 @@ RMSE: 1.261
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[34]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -14904,6 +14904,7 @@ RMSE: 1.261
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 </pre></div>
 
      </div>
@@ -14916,12 +14917,12 @@ RMSE: 1.261
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">evaluation.read_data</span> <span class="kn">import</span> <span class="n">read_movies</span><span class="p">,</span> <span class="n">read_ratings</span><span class="p">,</span> <span class="n">read_users</span>
-<span class="kn">from</span> <span class="nn">evaluation.read_data</span> <span class="kn">import</span> <span class="n">get_user_age</span><span class="p">,</span> <span class="n">get_user_occupation</span>
-<span class="kn">from</span> <span class="nn">evaluation.read_data</span> <span class="kn">import</span> <span class="n">encode_movie_genres</span><span class="p">,</span> <span class="n">extract_movie_year</span><span class="p">,</span> <span class="n">get_rating_datetime</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">workflow.read_data</span> <span class="kn">import</span> <span class="n">read_movies</span><span class="p">,</span> <span class="n">read_ratings</span><span class="p">,</span> <span class="n">read_users</span>
+<span class="kn">from</span> <span class="nn">workflow.read_data</span> <span class="kn">import</span> <span class="n">get_user_age</span><span class="p">,</span> <span class="n">get_user_occupation</span>
+<span class="kn">from</span> <span class="nn">workflow.read_data</span> <span class="kn">import</span> <span class="n">encode_movie_genres</span><span class="p">,</span> <span class="n">extract_movie_year</span><span class="p">,</span> <span class="n">get_rating_datetime</span>
 </pre></div>
 
      </div>
@@ -14946,7 +14947,7 @@ RMSE: 1.261
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">users</span> <span class="o">=</span> <span class="n">read_users</span><span class="p">(</span><span class="s1">'data/users.dat'</span><span class="p">)</span>
@@ -14964,7 +14965,7 @@ RMSE: 1.261
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">'Number of users:'</span><span class="p">,</span> <span class="n">users</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -15030,7 +15031,7 @@ Number of ratings: 1000209
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">users_mod</span> <span class="o">=</span> <span class="n">users</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_user_age</span><span class="p">(),</span> <span class="n">on</span><span class="o">=</span><span class="s1">'Age'</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_user_occupation</span><span class="p">(),</span> <span class="n">on</span><span class="o">=</span><span class="s1">'Occupation'</span><span class="p">)</span>
@@ -15046,7 +15047,7 @@ Number of ratings: 1000209
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">users_mod</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -15067,7 +15068,7 @@ Number of ratings: 1000209
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[13]:</div>
 
 
 
@@ -15166,7 +15167,7 @@ Number of ratings: 1000209
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
@@ -15214,7 +15215,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
@@ -15274,7 +15275,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">movies_mod</span> <span class="o">=</span> <span class="n">extract_movie_year</span><span class="p">(</span><span class="n">encode_movie_genres</span><span class="p">(</span><span class="n">movies</span><span class="p">,</span> <span class="n">drop_genres_column</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">remove_year_from_title</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -15290,7 +15291,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">movies_mod</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -15311,7 +15312,7 @@ class="
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[17]:</div>
 
 
 
@@ -15495,7 +15496,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
@@ -15545,7 +15546,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
@@ -15595,7 +15596,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
@@ -15666,7 +15667,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ratings_mod</span> <span class="o">=</span> <span class="n">get_rating_datetime</span><span class="p">(</span><span class="n">ratings</span><span class="p">,</span> <span class="n">remove_timestamp_column</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -15682,7 +15683,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ratings_mod</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -15703,7 +15704,7 @@ class="
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[15]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[22]:</div>
 
 
 
@@ -15802,7 +15803,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
@@ -15864,7 +15865,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
@@ -15914,7 +15915,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
@@ -15976,7 +15977,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ratings_mod</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">'UserID'</span><span class="p">,</span> <span class="s1">'MovieID'</span><span class="p">])[</span><span class="s1">'Rating'</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span>
@@ -15997,7 +15998,7 @@ class="
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[19]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[26]:</div>
 
 
 
@@ -16029,7 +16030,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[27]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
@@ -16091,7 +16092,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[28]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
@@ -16154,7 +16155,7 @@ Let's find a median (to remove the outliers) number of new users aquired in the 
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[29]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">filter_range</span> <span class="o">=</span> <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s2">"2000-05-01T00:00:00"</span><span class="p">,</span> <span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S"</span><span class="p">),</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s2">"2001-01-01T00:00:00"</span><span class="p">,</span> <span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S"</span><span class="p">))</span>
@@ -16182,7 +16183,7 @@ Let's find a median (to remove the outliers) number of new users aquired in the 
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[22]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[29]:</div>
 
 
 
@@ -16215,7 +16216,7 @@ dtype: float64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[30]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_set_threshold</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s2">"2000-11-23T00:00:00"</span><span class="p">,</span> <span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S"</span><span class="p">)</span>
@@ -16263,7 +16264,7 @@ Test set: 285095 ratings, 28.50%
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[31]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
@@ -16328,7 +16329,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[32]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">new_test_users</span> <span class="o">=</span> <span class="n">test_ratings</span><span class="p">[</span><span class="o">~</span><span class="n">test_ratings</span><span class="o">.</span><span class="n">UserID</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">train_ratings</span><span class="o">.</span><span class="n">UserID</span><span class="o">.</span><span class="n">unique</span><span class="p">())]</span><span class="o">.</span><span class="n">UserID</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
@@ -16386,34 +16387,51 @@ Test set has 1.74% of new movies (62)
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">right_cut_off_threshold</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s2">"2001-01-01T00:00:00"</span><span class="p">,</span> <span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S"</span><span class="p">)</span>
 <span class="n">test_set_threshold</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="s2">"2000-11-01T00:00:00"</span><span class="p">,</span> <span class="s2">"%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S"</span><span class="p">)</span>
 <span class="n">normal_level_of_new_users_in_test_set</span> <span class="o">=</span> <span class="p">(</span><span class="n">right_cut_off_threshold</span> <span class="o">-</span> <span class="n">test_set_threshold</span><span class="p">)</span><span class="o">.</span><span class="n">days</span> <span class="o">*</span> <span class="mi">15</span>
 
-<span class="n">test_index</span> <span class="o">=</span> <span class="p">(</span><span class="n">ratings_mod</span><span class="o">.</span><span class="n">DateTime</span> <span class="o">&gt;=</span> <span class="n">test_set_threshold</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">ratings_mod</span><span class="o">.</span><span class="n">DateTime</span> <span class="o">&lt;</span> <span class="n">right_cut_off_threshold</span><span class="p">)</span>
+<span class="n">test_inference_index</span> <span class="o">=</span> <span class="p">(</span><span class="n">ratings_mod</span><span class="o">.</span><span class="n">DateTime</span> <span class="o">&gt;=</span> <span class="n">test_set_threshold</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">ratings_mod</span><span class="o">.</span><span class="n">DateTime</span> <span class="o">&lt;</span> <span class="n">right_cut_off_threshold</span><span class="p">)</span>
 <span class="n">train_index</span> <span class="o">=</span> <span class="p">(</span><span class="n">ratings_mod</span><span class="o">.</span><span class="n">DateTime</span> <span class="o">&lt;</span> <span class="n">test_set_threshold</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">ratings_mod</span><span class="o">.</span><span class="n">DateTime</span> <span class="o">&lt;</span> <span class="n">right_cut_off_threshold</span><span class="p">)</span>
 
 <span class="n">train_ratings</span> <span class="o">=</span> <span class="n">ratings_mod</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_index</span><span class="p">]</span>
-<span class="n">test_ratings</span> <span class="o">=</span> <span class="n">ratings_mod</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+<span class="n">test_ratings</span> <span class="o">=</span> <span class="n">ratings_mod</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_inference_index</span><span class="p">]</span>
 
 <span class="n">new_test_users</span> <span class="o">=</span> <span class="n">test_ratings</span><span class="p">[</span><span class="o">~</span><span class="n">test_ratings</span><span class="o">.</span><span class="n">UserID</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">train_ratings</span><span class="o">.</span><span class="n">UserID</span><span class="o">.</span><span class="n">unique</span><span class="p">())]</span><span class="o">.</span><span class="n">UserID</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
 <span class="n">users_to_remove_from_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">new_test_users</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_test_users</span><span class="p">)</span> <span class="o">-</span> <span class="n">normal_level_of_new_users_in_test_set</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="n">test_index</span> <span class="o">=</span> <span class="n">test_index</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">test_ratings</span><span class="o">.</span><span class="n">UserID</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">users_to_remove_from_test</span><span class="p">))</span>
-<span class="n">test_ratings</span> <span class="o">=</span> <span class="n">ratings_mod</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+<span class="n">test_inference_index</span> <span class="o">=</span> <span class="n">test_inference_index</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">test_ratings</span><span class="o">.</span><span class="n">UserID</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">users_to_remove_from_test</span><span class="p">))</span>
+<span class="n">test_inference_ratings</span> <span class="o">=</span> <span class="n">ratings_mod</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_inference_index</span><span class="p">]</span>
 
-<span class="n">not_used_ratings</span> <span class="o">=</span> <span class="n">ratings_mod</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">test_index</span> <span class="o">|</span> <span class="n">train_index</span><span class="p">)]</span>
+<span class="n">not_used_ratings</span> <span class="o">=</span> <span class="n">ratings_mod</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">test_inference_index</span> <span class="o">|</span> <span class="n">train_index</span><span class="p">)]</span>
+</pre></div>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Train set: </span><span class="si">{</span><span class="n">train_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> ratings, </span><span class="si">{</span><span class="n">train_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">train_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">test_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">:</span><span class="s1">.2%</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Test set: </span><span class="si">{</span><span class="n">test_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> ratings, </span><span class="si">{</span><span class="n">test_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">train_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">test_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">:</span><span class="s1">.2%</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[37]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_ratings</span><span class="p">,</span> <span class="n">inference_ratings</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">test_inference_ratings</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Train set: </span><span class="si">{</span><span class="n">train_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> ratings, </span><span class="si">{</span><span class="n">train_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">train_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">test_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">inference_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">:</span><span class="s1">.2%</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Test set: </span><span class="si">{</span><span class="n">test_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> ratings, </span><span class="si">{</span><span class="n">test_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">train_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">test_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">inference_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">:</span><span class="s1">.2%</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Inference set: </span><span class="si">{</span><span class="n">inference_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> ratings, </span><span class="si">{</span><span class="n">inference_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">train_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">test_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">inference_ratings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">:</span><span class="s1">.2%</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -16435,8 +16453,9 @@ Test set has 1.74% of new movies (62)
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Train set: 500422 ratings, 77.88%
-Test set: 142094 ratings, 22.12%
+<pre>Train set: 500422 ratings, 78.02%
+Test set: 139000 ratings, 21.67%
+Inference set: 2000 ratings, 0.31%
 </pre>
 </div>
 </div>
@@ -16505,7 +16524,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[82]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[38]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">new_test_users</span> <span class="o">=</span> <span class="n">test_ratings</span><span class="p">[</span><span class="o">~</span><span class="n">test_ratings</span><span class="o">.</span><span class="n">UserID</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">train_ratings</span><span class="o">.</span><span class="n">UserID</span><span class="o">.</span><span class="n">unique</span><span class="p">())]</span><span class="o">.</span><span class="n">UserID</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
@@ -16535,7 +16554,7 @@ class="
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Test set has 72.39% of new users (915)
-Test set has 1.62% of new movies (55)
+Test set has 1.84% of new movies (63)
 </pre>
 </div>
 </div>
@@ -16561,7 +16580,7 @@ Test set has 1.62% of new movies (55)
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[88]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[39]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">save_ids</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
@@ -16585,11 +16604,12 @@ Test set has 1.62% of new movies (55)
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[87]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[40]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">save_ids</span><span class="p">(</span><span class="n">fn</span><span class="o">=</span><span class="s1">'data/train.ids'</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">train_ratings</span><span class="p">)</span>
 <span class="n">save_ids</span><span class="p">(</span><span class="n">fn</span><span class="o">=</span><span class="s1">'data/test.ids'</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">test_ratings</span><span class="p">)</span>
+<span class="n">save_ids</span><span class="p">(</span><span class="n">fn</span><span class="o">=</span><span class="s1">'data/inference.ids'</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">inference_ratings</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -16602,10 +16622,10 @@ Test set has 1.62% of new movies (55)
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[89]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> head ../data/train.ids
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> head data/train.ids
 </pre></div>
 
      </div>
