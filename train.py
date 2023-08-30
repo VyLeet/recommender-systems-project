@@ -1,5 +1,5 @@
-from tasks.model_selector import ModelSelector
-from tasks.abstract_task import AbstractTask, DATA_DIR
+from workflow.model_selector import ModelSelector
+from workflow.abstract_task import AbstractTask, DATA_DIR
 import argparse
 from evaluate import Evaluate
 
